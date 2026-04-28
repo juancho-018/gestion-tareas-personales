@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Crear Nueva Tarea')
+@section('title', 'Editar Tarea')
 
 @section('content')
 <div class="max-w-2xl mx-auto px-4 py-16">
@@ -10,13 +10,15 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
         </a>
-        <h1 class="text-3xl font-extrabold tracking-tight">Crear Nueva Tarea</h1>
+        <h1 class="text-3xl font-extrabold tracking-tight">Editar Tarea</h1>
     </div>
 
     <div class="bg-white dark:bg-gray-900 shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 rounded-3xl p-10">
         @include('partials.form', [
-            'action' => route('tareas.store'),
-            'buttonText' => 'Guardar Tarea'
+            'action' => route('tareas.update', $tarea->id),
+            'method' => 'PUT',
+            'buttonText' => 'Actualizar Tarea',
+            'tarea' => $tarea
         ])
     </div>
 </div>
