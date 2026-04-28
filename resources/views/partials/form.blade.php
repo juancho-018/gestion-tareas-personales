@@ -6,7 +6,7 @@
     
     <div>
         <label for="titulo" class="block text-sm font-black uppercase tracking-widest text-gray-500 mb-3">Título de la Tarea</label>
-        <input type="text" name="titulo" id="titulo" value="{{ old('titulo', $tarea->titulo ?? '') }}" placeholder="Ej: Comprar el regalo de mamá" required
+        <input type="text" name="titulo" id="titulo" value="{{ old('titulo', $tarea->titulo ?? '') }}" placeholder="Ingresa un titulo para tu tarea" required
                class="w-full px-5 py-4 rounded-2xl border @error('titulo') border-rose-500 bg-rose-50/30 @else border-gray-200 dark:border-gray-800 @enderror focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 bg-white dark:bg-gray-800 transition-all outline-none text-lg font-medium">
         @error('titulo')
             <p class="mt-3 text-sm text-rose-500 font-bold flex items-center gap-2">
@@ -20,7 +20,7 @@
 
     <div>
         <label for="descripcion" class="block text-sm font-black uppercase tracking-widest text-gray-500 mb-3">Descripción <span class="text-gray-300 dark:text-gray-700 font-normal">(Opcional)</span></label>
-        <textarea name="descripcion" id="descripcion" rows="4" placeholder="Detalla los pasos o notas adicionales..."
+        <textarea name="descripcion" id="descripcion" rows="4" placeholder="Añade una descripcion a tu tarea"
                   class="w-full px-5 py-4 rounded-2xl border @error('descripcion') border-rose-500 bg-rose-50/30 @else border-gray-200 dark:border-gray-800 @enderror focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 bg-white dark:bg-gray-800 transition-all outline-none resize-none">{{ old('descripcion', $tarea->descripcion ?? '') }}</textarea>
         @error('descripcion')
             <p class="mt-3 text-sm text-rose-500 font-bold">{{ $message }}</p>
