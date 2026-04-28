@@ -6,16 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TareaRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Obtiene las reglas de validación que se aplican a la solicitud.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -30,7 +23,7 @@ class TareaRequest extends FormRequest
     }
 
     /**
-     * Get the error messages for the defined validation rules.
+     * Obtiene los mensajes de error para las reglas de validación definidas.
      */
     public function messages(): array
     {

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Http\Requests\TareaRequest;
 use App\Models\Tarea;
+use Illuminate\Http\Request;
 
 class TareaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de tareas.
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class TareaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear una nueva tarea.
      */
     public function create()
     {
@@ -26,31 +26,48 @@ class TareaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda una nueva tarea en la base de datos.
      */
-    public function store(Request $request)
+    public function store(TareaRequest $request)
     {
-        $validated = $request->validate([
-            'titulo' => 'required|string|min:3|max:100',
-            'descripcion' => 'nullable|string|max:500',
-            'prioridad' => 'required|in:baja,media,alta',
-            'fecha_limite' => 'nullable|date',
-        ], [
-            'titulo.required' => "El título es obligatorio y debe tener entre 3 y 100 caracteres.",
-            'titulo.min' => "El título es obligatorio y debe tener entre 3 y 100 caracteres.",
-            'titulo.max' => "El título es obligatorio y debe tener entre 3 y 100 caracteres.",
-            'descripcion.max' => "La descripción no puede superar los 500 caracteres.",
-            'prioridad.required' => "La prioridad debe ser baja, media o alta.",
-            'fecha_limite.date' => "La fecha límite debe ser hoy o una fecha futura.",
-        ]);
-
-        Tarea::create($validated);
+        Tarea::create($request->validated());
 
         return redirect()->route('tareas.index')->with('success', 'Tarea creada correctamente.');
     }
 
     /**
-     * Alternar el estado de completada de una tarea.
+     * Muestra el formulario para editar una tarea existente.
+     */
+    public function edit($id)
+    {
+        $tarea = Tarea::findOrFail($id);
+        return view('edit', compact('tarea'));
+    }
+
+    /**
+     * Actualiza una tarea en la base de datos.
+     */
+    public function update(TareaRequest $request, $id)
+    {
+        $tarea = Tarea::findOrFail($id);
+        $tarea->update($request->validated());
+
+        return redirect()->route('tareas.index')->with('success', 'Tarea actualizada correctamente.');
+    }
+
+    /**
+     * Elimina una tarea de la base de datos.
+     */
+    public function destroy($id)
+    {
+        $tarea = Tarea::findOrFail($id);
+        $tarea->delete();
+
+        return redirect()->route('tareas.index')->with('success', 'Tarea eliminada correctamente.');
+    }
+
+    /**
+     * Alterna el estado de completada de una tarea.
      */
     public function toggle($id)
     {
