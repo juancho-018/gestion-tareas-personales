@@ -25,7 +25,7 @@ class TareaRequest extends FormRequest
     /**
      * Obtiene los mensajes de error para las reglas de validación definidas.
      */
-    public function messages(): array
+       public function messages(): array
     {
         return [
             'titulo.required' => "El título es obligatorio y debe tener entre 3 y 100 caracteres.",
@@ -33,8 +33,10 @@ class TareaRequest extends FormRequest
             'titulo.max' => "El título es obligatorio y debe tener entre 3 y 100 caracteres.",
             'descripcion.max' => "La descripción no puede superar los 500 caracteres.",
             'prioridad.required' => "La prioridad debe ser baja, media o alta.",
-            'fecha_limite.date' => "La fecha límite debe ser una fecha válida.",
+            'prioridad.in' => "La prioridad debe ser baja, media o alta.", // Añadido para mayor seguridad
+            'fecha_limite.date' => "La fecha límite debe ser hoy o una fecha futura.",
             'fecha_limite.after_or_equal' => "La fecha límite debe ser hoy o una fecha futura.",
         ];
     }
+
 }
