@@ -1,58 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TareApp 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**TareApp** es una aplicación de gestión de tareas limpia, moderna y altamente funcional construida con el framework Laravel. Ofrece una interfaz de usuario fluida con diseño "Soft UI" para organizar prioridades y alcanzar metas diarias.
 
-## About Laravel
+**Juan Camilo Meneses Galeano**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías Utilizadas
+*   **PHP:** ^8.2
+*   **Laravel:** 13.7.0 (Framework Backend)
+*   **Tailwind CSS:** (Framework Frontend para estilos)
+*   **SQLite:** (Base de datos por defecto de laravel)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Características Principales
+*   Interfaz moderna y responsiva.
+*   Creación, edición y eliminación de tareas.
+*   Gestión de prioridades (Alta, Media, Baja) con indicadores visuales.
+*   Marcado rápido de tareas completadas (Toggle).
+*   Validaciones estrictas y mensajes dinámicos de éxito (Flash messages).
+*   Diseño optimizado para modo oscuro nativo.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Pasos para correr el proyecto localmente
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Sigue estas instrucciones para ejecutar TareApp en la máquina local:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Clonar el repositorio
+Ejecutar el siguiente comando en la terminal para clonar el repositorio:
 ```bash
-composer require laravel/boost --dev
+git clone https://github.com/juancho-018/gestion-tareas-personales.git
+cd gestion-tareas-personales
+```
+*(Si ya esta descargada la carpeta solo entrar en ella desde la terminal).
 
-php artisan boost:install
+### 2. Instalar dependencias de PHP y Node.js
+Instalar las librerías necesarias del backend (Composer) y frontend (NPM):
+```bash
+composer install
+npm install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 3. Configurar el entorno virtual (.env)
+Duplicar el archivo de configuración de ejemplo y reemplazarlo con .env:
+```bash
+cp .env.example .env
+```
+Generar la clave de seguridad de la aplicación Laravel (este comando llenará automáticamente la variable `APP_KEY=` dentro del archivo `.env` con un valor en base64, por ejemplo `APP_KEY=base64:O8CyrzmSUDnmk...`):
+```bash
+php artisan key:generate
+```
 
-## Contributing
+### 4. Configurar y correr las migraciones
+TareApp usa SQLite por defecto. Crear el archivo de base de datos y ejecutar las migraciones para crear la estructura de las tablas:
+```bash
+touch database/database.sqlite
+php artisan migrate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 5. Compilar los assets del Frontend (Tailwind CSS)
+Para que los estilos de Tailwind se generen y funcionen correctamente (especialmente las clases dinámicas), se debe ejecutar Vite:
+```bash
+npm run build
+# O si desea dejarlo corriendo para desarrollo se ejecuta: npm run dev
+```
 
-## Code of Conduct
+### 6. Servir la aplicación
+Finalmente, levantar el servidor de desarrollo de PHP:
+```bash
+php artisan serve
+```
+¡Listo! Ahora se puede acceder a la aplicación abriendo el navegador en el puerto 8000: [http://localhost:8000](http://localhost:8000)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Link al Deploy
+*Se desplegara en un futuro en Vercel.*
