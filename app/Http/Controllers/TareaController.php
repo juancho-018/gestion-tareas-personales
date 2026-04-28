@@ -14,7 +14,7 @@ class TareaController extends Controller
     public function index()
     {
         $tareas = Tarea::orderBy('created_at', 'desc')->get();
-        return view('index', compact('tareas'));
+        return view('tareas.index', compact('tareas'));
     }
 
     /**
@@ -22,7 +22,7 @@ class TareaController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('tareas.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class TareaController extends Controller
     public function edit($id)
     {
         $tarea = Tarea::findOrFail($id);
-        return view('edit', compact('tarea'));
+        return view('tareas.edit', compact('tarea'));
     }
 
     /**
@@ -63,11 +63,11 @@ class TareaController extends Controller
         $tarea = Tarea::findOrFail($id);
         $tarea->delete();
 
-        return redirect()->route('tareas.index')->with('success', 'Tarea eliminada correctamente.');
+        return redirect()->route('tareas.index')->with('success', 'Tarea eliminada.'); // Mensaje exacto
     }
 
     /**
-     * Alterna el estado de completada de una tarea.
+     * Alternar el estado de completada de una tarea.
      */
     public function toggle($id)
     {
@@ -75,6 +75,7 @@ class TareaController extends Controller
         $tarea->completada = !$tarea->completada;
         $tarea->save();
 
-        return redirect()->route('tareas.index')->with('success', 'Estado de la tarea actualizado.');
+        return redirect()->route('tareas.index'); // Redirección sin mensaje
     }
+
 }
