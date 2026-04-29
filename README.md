@@ -10,15 +10,6 @@
 *   **Tailwind CSS:** (Framework Frontend para estilos)
 *   **SQLite:** (Base de datos por defecto de laravel)
 
-## Características Principales
-*   Interfaz moderna y responsiva.
-*   Creación, edición y eliminación de tareas.
-*   Gestión de prioridades (Alta, Media, Baja) con indicadores visuales.
-*   Marcado rápido de tareas completadas (Toggle).
-*   Validaciones estrictas y mensajes dinámicos de éxito (Flash messages).
-*   Diseño optimizado para modo oscuro nativo.
-
----
 
 ## Pasos para correr el proyecto localmente
 
@@ -44,7 +35,7 @@ Duplicar el archivo de configuración de ejemplo y reemplazarlo con .env:
 ```bash
 cp .env.example .env
 ```
-Generar la clave de seguridad de la aplicación Laravel (este comando llenará automáticamente la variable `APP_KEY=` dentro del archivo `.env` con un valor en base64, por ejemplo `APP_KEY=base64:O8CyrzmSUDnmk...`):
+Generar la clave de seguridad de la aplicación Laravel (este comando llenará automáticamente la variable `APP_KEY=` dentro del archivo `.env` con un valor en base64):
 ```bash
 php artisan key:generate
 ```
@@ -73,4 +64,4 @@ php artisan serve
 ---
 
 ## Link al Deploy
-*Se desplegara en un futuro en Vercel.*
+https://gestion-tareas-personales-production.up.railway.app/
