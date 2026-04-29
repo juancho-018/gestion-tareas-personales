@@ -8,9 +8,7 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    // ¡ESTA ES LA LÍNEA MÁGICA! 
-    // Le dice a Laravel que corra las migraciones en memoria antes de hacer los tests, 
-    // solucionando el error "no such table: tareas"
+
     use RefreshDatabase;
 
     public function test_la_ruta_raiz_redirige_a_tareas(): void

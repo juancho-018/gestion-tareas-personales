@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TareaRequest extends FormRequest
 {
-
     /**
      * Obtiene las reglas de validación que se aplican a la solicitud.
      *
