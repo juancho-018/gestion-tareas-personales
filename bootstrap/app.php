@@ -11,7 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Excluye las rutas de la API del CSRF para permitir
+        // peticiones desde Postman / Thunder Client sin token.
+        $middleware->validateCsrfTokens(except: [
+            'tareas',
+            'tareas/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

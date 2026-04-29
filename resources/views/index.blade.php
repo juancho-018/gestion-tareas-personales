@@ -60,12 +60,13 @@
                                         <form action="{{ route('tareas.toggle', $tarea->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" class="w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all {{ $tarea->completada ? 'bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-500/30' : 'border-gray-300 dark:border-gray-600 hover:border-emerald-500' }}">
-                                                @if($tarea->completada)
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                                    </svg>
-                                                @endif
+                                            <button type="submit"
+                                                title="{{ $tarea->completada ? 'Marcar como pendiente' : 'Marcar como completada' }}"
+                                                class="w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold text-base transition-all
+                                                    {{ $tarea->completada
+                                                        ? 'bg-emerald-500 border-emerald-500 text-white shadow-lg shadow-emerald-500/30'
+                                                        : 'border-gray-300 dark:border-gray-600 text-transparent hover:border-emerald-400 hover:text-emerald-400' }}">
+                                                ✓
                                             </button>
                                         </form>
                                     </td>
