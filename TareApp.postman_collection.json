@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "tareapp-collection-v1",
+		"name": "TareApp — Gestión de Tareas",
+		"description": "Colección de pruebas para la API de TareApp construida con Laravel.\n\nBase URL: http://localhost:8000\n\nIMPORTANTE: Todas las peticiones incluyen el header `Accept: application/json` para recibir respuestas JSON en lugar de redirecciones HTML.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "tarea_id",
+			"value": "1",
+			"type": "string",
+			"description": "ID de la tarea a usar en las pruebas. Actualízalo después de crear una tarea."
+		}
+	],
+	"item": [
+		{
+			"name": "1. Listar todas las tareas",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": "Indica al servidor que queremos JSON"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tareas",
+					"host": ["{{base_url}}"],
+					"path": ["tareas"]
+				},
+				"description": "Retorna todas las tareas ordenadas por fecha de creación.\n\nRespuesta esperada: HTTP 200 con `data` (lista de tareas) y `meta` (totales)."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Crear tarea (datos válidos)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titulo\": \"Aprender Laravel Resources\",\n    \"descripcion\": \"Entender cómo funcionan TareaRequest y TareaResource\",\n    \"prioridad\": \"alta\",\n    \"fecha_limite\": \"2025-12-31\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tareas",
+					"host": ["{{base_url}}"],
+					"path": ["tareas"]
+				},
+				"description": "Crea una nueva tarea con todos los campos.\n\nRespuesta esperada: HTTP 201 Created con la tarea recién creada.\n\nCopia el `id` de la respuesta y actualiza la variable `tarea_id` de la colección."
+			},
+			"response": []
+		},
+		{
+			"name": "2b. Crear tarea (solo campos obligatorios)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titulo\": \"Tarea mínima\",\n    \"prioridad\": \"baja\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tareas",
+					"host": ["{{base_url}}"],
+					"path": ["tareas"]
+				},
+				"description": "Crea una tarea sin descripción ni fecha_limite (ambos son opcionales).\n\nRespuesta esperada: HTTP 201 Created."
+			},
+			"response": []
+		},
+		{
+			"name": "2c. Crear tarea (validación fallida — error 422)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titulo\": \"ab\",\n    \"prioridad\": \"urgente\",\n    \"fecha_limite\": \"2000-01-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tareas",
+					"host": ["{{base_url}}"],
+					"path": ["tareas"]
+				},
+				"description": "Envía datos inválidos a propósito para ver los errores de validación.\n\n- `titulo` tiene menos de 3 caracteres\n- `prioridad` no es baja/media/alta\n- `fecha_limite` es una fecha pasada\n\nRespuesta esperada: HTTP 422 con el objeto `errors`."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Actualizar tarea",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titulo\": \"Laravel Resources — Actualizado\",\n    \"descripcion\": \"Descripción modificada desde Postman\",\n    \"prioridad\": \"media\",\n    \"fecha_limite\": \"2025-11-30\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/tareas/{{tarea_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["tareas", "{{tarea_id}}"]
+				},
+				"description": "Actualiza todos los campos de la tarea con ID = `tarea_id`.\n\nRespuesta esperada: HTTP 200 con los datos actualizados."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Toggle — Marcar como completada / pendiente",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tareas/{{tarea_id}}/toggle",
+					"host": ["{{base_url}}"],
+					"path": ["tareas", "{{tarea_id}}", "toggle"]
+				},
+				"description": "Alterna el campo `completada` entre `true` y `false`.\n\nLlama dos veces al mismo endpoint para ver cómo cambia el valor.\n\nRespuesta esperada: HTTP 200 con `completada: true` o `completada: false`."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Eliminar tarea",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tareas/{{tarea_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["tareas", "{{tarea_id}}"]
+				},
+				"description": "Elimina permanentemente la tarea con ID = `tarea_id`.\n\nRespuesta esperada: HTTP 204 No Content (sin cuerpo en la respuesta)."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Tarea no encontrada — error 404",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tareas/99999",
+					"host": ["{{base_url}}"],
+					"path": ["tareas", "99999"]
+				},
+				"description": "Intenta acceder a una tarea con un ID que no existe.\n\nRespuesta esperada: HTTP 404 Not Found."
+			},
+			"response": []
+		}
+	]
+}
